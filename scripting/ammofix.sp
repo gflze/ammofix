@@ -86,11 +86,7 @@ public Action OnEquipUse(int entity, int other) {
 				hasAmmo = true;
 			}
 		}
-		else
-		{
-			GivePlayerItem(other, sWeapon);
-		}
 	}
  
-	return Plugin_Handled;
+	return Plugin_Continue;
 }
