@@ -2,7 +2,9 @@
 #include <sdktools>
 #include <sdkhooks>
  
-#define VERSION "1.0"
+#pragma newdecls required
+ 
+#define VERSION "1.1"
  
 public Plugin myinfo = 
 {
@@ -17,14 +19,14 @@ Handle g_hSDK_StockPlayerAmmo;
 bool bLateLoad;
  
 public void OnPluginStart() {
-	new Handle:hGameConf = LoadGameConfigFile("ammofix.games");
+	GameData hGameConf = LoadGameConfigFile("ammofix.games");
 	if(hGameConf == INVALID_HANDLE)
 		SetFailState("No gamedata found for ammofix. RIP.");
  
 	StartPrepSDKCall(SDKCall_Entity);
 	PrepSDKCall_SetFromConf(hGameConf, SDKConf_Signature, "StockPlayerAmmo");
 	PrepSDKCall_AddParameter(SDKType_CBaseEntity, SDKPass_Pointer);
-	g_hSDK_StockPlayerAmmo = EndPrepSDKCall()
+	g_hSDK_StockPlayerAmmo = EndPrepSDKCall();
  
 	CloseHandle(hGameConf);
  
@@ -41,7 +43,7 @@ public void OnPluginStart() {
 	}
 }
  
-public APLRes AskPluginLoad2(Handle:myself, bool:late, String:error[], err_max)
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
 	bLateLoad = late;
 	return APLRes_Success;
